@@ -1,0 +1,146 @@
+
+--- SLIDE 1 ---
+ “MULTIMODAL  AI–DRIVEN  SMART  HEALTHCARE  PLATFORM FOR  INTELLIGENT  TELEMEDICINE  AND  DIAGNOSTIC  DECISION SUPPORT”
+DEPARTMENT OF  IT
+PRESENTED BY :
+Kesavan. R              - [510422205027]
+Purushothaman. S   - [510422205302]
+Janamejan. V           - [510422205020]
+Syed Adhil B            - [510422205056]
+PROJECT GUIDE 
+Mrs. K. Haripriya,
+        AP/IT.
+
+
+--- SLIDE 2 ---
+PROBLEM STATEMENT 
+Lack of transparency reduces trust in AI systems.
+Systems are not user-friendly for elderly and disabled users.
+No proper emergency detection for critical conditions.
+Patients face high costs due to unnecessary tests.
+Absence of integrated healthcare solutions in a single platform.
+
+
+--- SLIDE 3 ---
+INTRODUCTION
+The project presents an AI-driven smart healthcare platform that functions as a digital hospital.
+It enables multimodal interaction (voice and text input) for better accessibility.
+The system provides instant disease prediction with emergency alerts for critical cases.
+It is designed as a scalable solution for future integration with hospitals and telemedicine services.
+
+
+--- SLIDE 4 ---
+ABSTRACT
+The completed modules include voice-based input, an AI-driven disease prediction system, and SHAP-based visualization for explainable results, all integrated with a fully functional frontend, backend, and cloud deployment. The remaining work focuses on implementing OCR for medical report scanning and a doctor recommendation system to enhance user support. In the future, the system will include video consultation and digital health records, with a modular design that allows easy addition of new features and scalability.
+
+--- SLIDE 5 ---
+OBJECTIVE 
+Develop an accurate AI model for disease prediction.
+Implement Explainable AI for transparency.
+Enable voice and text-based interaction.
+Reduce healthcare costs and unnecessary tests.
+Provide integrated and user-friendly healthcare system.
+
+
+--- SLIDE 6 ---
+
+EXISTING SYSTEM
+Only supports text-based symptom input.
+Provides no explanation for predictions.
+Lacks emergency alert mechanisms.
+Healthcare services are fragmented across multiple apps.
+Does not support traditional medicine systems.
+
+
+--- SLIDE 7 ---
+PROPOSED SYSTEM 
+Introduces voice-enabled symptom input system.
+Uses SHAP for Explainable AI visualization.
+Includes real-time emergency detection system.
+Applies intelligent follow-up questioning for better accuracy.
+Provides treatment recommendations across multiple medical systems.
+
+
+--- SLIDE 8 ---
+TOOLS AND TECHNOLOGIES
+Frontend: Tailwind CSS, JavaScript, React.js Web Speech API.
+Backend: Python and Flask framework.
+AI Tools: Scikit-learn, Pandas, SHAP.
+Deployment: Render, Gunicorn, GitHub.
+Development supported by VS Code and virtual environments.
+
+
+--- SLIDE 9 ---
+DATASET DESCRIPTION
+Contains 130+ symptoms and 40+ diseases.
+Collected from Kaggle medical datasets.
+Includes disease descriptions and precaution details.
+Supports extension with new diseases and treatments.
+Helps in accurate mapping between symptoms and diseases
+
+--- SLIDE 10 ---
+SYSTEM AECHITECTURE 
+
+--- SLIDE 11 ---
+MODULES 
+
+--- SLIDE 12 ---
+
+EXPECTED OUTCOME
+Provides easy-to-use healthcare platform for all users.
+Improves trust with explainable AI results.
+Enables early detection of critical diseases.
+Reduces medical expenses and unnecessary tests.
+Enhances overall healthcare accessibility and efficiency.
+
+
+--- SLIDE 13 ---
+
+SAMPLE IMAGES
+
+--- SLIDE 14 ---
+
+SAMPLE IMAGES
+
+--- SLIDE 15 ---
+
+SAMPLE IMAGES
+
+--- SLIDE 16 ---
+
+SAMPLE IMAGES
+
+--- SLIDE 17 ---
+
+SAMPLE IMAGES
+
+--- SLIDE 18 ---
+
+GANTT CHART
+
+--- SLIDE 19 ---
+
+CONCLUSION
+This platform transforms the digital healthcare experience by enabling voice-based symptom input combined with Explainable AI for accurate and user-friendly diagnosis. It enhances trust, safety, and accessibility by providing transparent results and real-time emergency alerts. The system is fully developed, tested, and designed for scalability, with future potential for nationwide deployment, including live doctor consultations and lab integration.
+
+--- SLIDE 20 ---
+
+SUSTAINABLE DEVELOPMENT GOALS
+
+
+--- SLIDE 21 ---
+IEEE REFERENCES
+[1] Andre Esteva, B. Kuprel, R. A. Novoa, et al., “Dermatologist-level classification of skin cancer with deep neural networks,” Nature, vol. 542, no. 7639, pp. 115–118, 2017.
+[2] Olaf Ronneberger, P. Fischer, and T. Brox, “U-Net: Convolutional Networks for Biomedical Image Segmentation,” in Proc. MICCAI, 2015, pp. 234–241. 
+[3] Karen Simonyan and Andrew Zisserman, “Very Deep Convolutional Networks for Large-Scale Image Recognition,” in Proc. ICLR, 2015.
+[4] Diederik P. Kingma and Jimmy Ba, “Adam: A Method for Stochastic Optimization,” in Proc. ICLR, 2015. 
+[5] Ramprasaath R. Selvaraju, M. Cogswell, A. Das, et al., “Grad-CAM: Visual Explanations from Deep Networks via Gradient-Based Localization,” in Proc. ICCV, 2017, pp. 618–626. 
+[6] World Health Organization, “Telemedicine: Opportunities and Developments in Member States,” WHO Press, Geneva, Switzerland, 2010. 
+[7] Geoffrey Hinton, L. Deng, D. Yu, et al., “Deep Neural Networks for Acoustic Modeling in Speech Recognition,” IEEE Signal Processing Magazine, vol. 29, no. 6, pp. 82–97, 2012. 
+[8] Ashish Vaswani, N. Shazeer, N. Parmar, et al., “Attention Is All You Need,” in Proc. NeurIPS, 2017, pp. 5998–6008.
+[9] Rich Caruana, Y. Lou, J. Gehrke, and G. Koch, “Intelligible Models for Healthcare: Predicting Pneumonia Risk and Hospital 30- Day Readmission,” in Proc. KDD, 2015, pp. 1721–1730. 
+[10] Eric Topol, “High-performance medicine: the convergence of human and artificial intelligence,” Nature Medicine, vol. 25, pp. 44–56, 2019.
+
+--- SLIDE 22 ---
+DEPARTMENT OF  IT
+       THANK YOU

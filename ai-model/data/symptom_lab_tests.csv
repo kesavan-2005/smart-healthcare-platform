@@ -1,0 +1,42 @@
+Disease,LabTests,Cost
+Drug Reaction,"IgE Blood Test, Eosinophil Count",1200
+Malaria,"Rapid Diagnostic Test (RDT), Peripheral Blood Smear",500
+Allergy,"Skin Prick Test, Complete Blood Count (CBC)",1500
+Hypothyroidism,"Thyroid Panel (TSH, T3, T4)",900
+Psoriasis,"Skin Biopsy (if severe), ESR",1800
+GERD,"Upper GI Endoscopy, Barium Swallow",4500
+Chronic cholestasis,"Liver Function Test (LFT), Ultrasound Abdomen",2200
+hepatitis A,"Anti-HAV IgM, LFT",1600
+Osteoarthristis,"Joint X-Ray, Rheumatoid Factor",1200
+(vertigo) Paroymsal  Positional Vertigo,"Dix-Hallpike Test, MRI Brain",6500
+Hypoglycemia,"Fasting Blood Sugar (FBS), Insulin levels",800
+Acne,"Hormonal Panel (Testosterone, PCOS check)",2500
+Diabetes,"Fasting Blood Sugar, HbA1c",850
+Impetigo,"Skin Swab Culture",700
+Hypertension,"Lipid Profile, ECG, Kidney Function Test",1800
+Peptic ulcer diseae,"Endoscopy, H. Pylori Urea Breath Test",4000
+Dimorphic hemorrhoids(piles),"Proctoscopy, Stool Occult Blood",1500
+Common Cold,"Clinical Diagnosis (No tests required usually)",0
+Chicken pox,"Tzanck smear, VZV PCR",1500
+Cervical spondylosis,"Cervical Spine X-Ray, MRI Neck",4000
+Hyperthyroidism,"Thyroid Panel (TSH, T3, T4)",900
+Urinary tract infection,"Urine Routine & Microscopy, Urine Culture",700
+Varicose veins,"Venous Doppler Ultrasound",2500
+AIDS,"HIV Tridot / ELISA, CD4 Count",1200
+Paralysis (brain hemorrhage),"CT Scan Brain, MRI Brain",7500
+Typhoid,"Widal Test, Blood Culture",850
+Hepatitis B,"HBsAg, HBV DNA Quantitative",2500
+Fungal infection,"KOH Mount, Fungal Culture",600
+Hepatitis C,"Anti-HCV, HCV RNA PCR",3000
+Migraine,"Clinical Diagnosis, MRI Brain (rare)",5500
+Bronchial Asthma,"Spirometry (PFT), Chest X-Ray",1500
+Alcoholic hepatitis,"LFT, Ultrasound Abdomen",2800
+Jaundice,"Serum Bilirubin, Complete LFT",750
+Hepatitis E,"Anti-HEV IgM",1800
+Dengue,"NS1 Antigen, CBC (Platelet count)",900
+Hepatitis D,"Anti-HDV",2200
+Heart attack,"Troponin-I, ECG, Creatine Kinase (CK-MB)",3500
+Pneumonia,"Chest X-Ray, Sputum Culture",1400
+Arthritis,"Rheumatoid Factor (RA Test), Anti-CCP, X-Ray",2200
+Gastroenteritis,"Stool Routine, Stool Culture",800
+Tuberculosis,"Chest X-Ray, Sputum AFB, GeneXpert",2000
