@@ -24,6 +24,7 @@ export default function Dashboard({ user, onLogout }) {
   const [showVideo, setShowVideo] = useState(false);
   const [showBooking, setShowBooking] = useState(false);
   const [showSandbox, setShowSandbox] = useState(false);
+  const [activeMedSystem, setActiveMedSystem] = useState('Allopathy');
 
   const API_BASE = import.meta.env.VITE_API_URL || 'http://127.0.0.1:5000';
 
@@ -315,14 +316,57 @@ export default function Dashboard({ user, onLogout }) {
             <p style={{ color: 'var(--text-muted)' }}>{predictionData.description}</p>
           </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '1.5rem', marginBottom: '1.5rem' }}>
-            <div style={{ border: '1px solid var(--border)', padding: '1.5rem', borderRadius: '1rem' }}>
-              <h4 style={{ color: 'var(--primary)', marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}><CheckSquare size={18}/> Precautions</h4>
-              <ul style={{ paddingLeft: '1.5rem', color: 'var(--text-muted)' }}>
-                {predictionData.precautions && predictionData.precautions.map((p,i) => <li key={i}>{p}</li>)}
-              </ul>
+          {/* Treatment Classification Full Width */}
+          <div className="hover-glow animate-stagger-2" style={{ border: '1px solid var(--border)', padding: '1.5rem', borderRadius: '1rem', background: 'rgba(15,23,42,0.6)', marginBottom: '1.5rem' }}>
+            <h4 style={{ color: 'var(--primary)', marginBottom: '1.5rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+              <CheckSquare size={18}/> Treatment Classification
+            </h4>
+            
+            {/* Tab Bar */}
+            <div style={{ display: 'flex', gap: '0.5rem', marginBottom: '1.5rem', background: 'rgba(0,0,0,0.3)', padding: '0.5rem', borderRadius: '0.8rem', overflowX: 'auto' }}>
+              {['Allopathy', 'Ayurveda', 'Siddha'].map(sys => (
+                <button 
+                  key={sys}
+                  onClick={() => setActiveMedSystem(sys)}
+                  style={{ 
+                    flex: 1, minWidth: '100px', padding: '0.8rem 1rem', border: 'none', borderRadius: '0.5rem', cursor: 'pointer', transition: 'all 0.3s',
+                    background: activeMedSystem === sys ? 'var(--primary)' : 'transparent',
+                    color: activeMedSystem === sys ? '#000' : 'var(--text-muted)',
+                    fontWeight: activeMedSystem === sys ? 600 : 400
+                  }}
+                >
+                  {sys}
+                </button>
+              ))}
+            </div>
+
+            {/* Tab Content */}
+            <div style={{ minHeight: '120px', padding: '1.5rem', background: 'rgba(255,255,255,0.02)', borderRadius: '0.8rem', border: '1px solid rgba(255,255,255,0.05)' }}>
+              {activeMedSystem === 'Allopathy' && (
+                <ul style={{ paddingLeft: '1.5rem', color: 'var(--text-main)', margin: 0, display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+                  {predictionData.precautions && predictionData.precautions.map((p,i) => <li key={i} style={{ textTransform: 'capitalize' }}>{p}</li>)}
+                </ul>
+              )}
+              {activeMedSystem === 'Ayurveda' && (
+                <div style={{ color: 'var(--text-main)', lineHeight: '1.6' }}>
+                  <span style={{ color: '#22c55e', fontWeight: 600, display: 'block', marginBottom: '0.5rem', fontSize: '1.1rem' }}>🌿 Ayurvedic Protocol</span>
+                  {predictionData.ayurveda}
+                </div>
+              )}
+              {activeMedSystem === 'Siddha' && (
+                <div style={{ color: 'var(--text-main)', lineHeight: '1.6' }}>
+                  <span style={{ color: '#eab308', fontWeight: 600, display: 'block', marginBottom: '0.5rem', fontSize: '1.1rem' }}>🌿 Siddha Protocol</span>
+                  {predictionData.siddha}
+                </div>
+              )}
             </div>
             
+            <div style={{ marginTop: '1.5rem', fontSize: '0.8rem', color: 'var(--text-muted)', borderTop: '1px solid rgba(255,255,255,0.1)', paddingTop: '1rem', fontStyle: 'italic' }}>
+              Disclaimer: These are AI-generated recommendations and not a substitute for professional medical advice. Please consult a registered doctor before starting any new treatments.
+            </div>
+          </div>
+
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '1.5rem', marginBottom: '1.5rem' }}>
             <div className="hover-glow animate-stagger-3" style={{ border: '1px solid var(--border)', padding: '1.5rem', borderRadius: '1rem', background: 'rgba(15,23,42,0.6)' }}>
               <h4 style={{ color: '#a855f7', marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}><Stethoscope size={18}/> Recommended Specialist</h4>
               <div style={{ fontSize: '1.5rem', fontWeight: 600, marginBottom: '1rem', color: 'white' }}>{predictionData.recommended_doctor}</div>
@@ -335,22 +379,7 @@ export default function Dashboard({ user, onLogout }) {
                 </button>
               </div>
             </div>
-          </div>
-
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '1.5rem', marginBottom: '1.5rem' }}>
-             {/* Alternative Medicine */}
-             <div className="hover-glow animate-stagger-4" style={{ border: '1px solid var(--border)', padding: '1.5rem', borderRadius: '1rem', background: 'rgba(15,23,42,0.6)' }}>
-                <h4 style={{ color: '#22c55e', marginBottom: '1rem' }}>🌿 Hollistic Alternate Medicine</h4>
-                <div style={{ marginBottom: '1rem' }}>
-                  <span style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>Ayurveda Suggestion:</span>
-                  <div style={{ color: '#fff', fontWeight: 500 }}>{predictionData.ayurveda}</div>
-                </div>
-                <div>
-                  <span style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>Siddha Suggestion:</span>
-                  <div style={{ color: '#fff', fontWeight: 500 }}>{predictionData.siddha}</div>
-                </div>
-             </div>
-
+            
              {/* Smart Sandbox Estimator */}
              <div className="hover-glow animate-stagger-4" style={{ border: '1px solid #eab308', padding: '1.5rem', borderRadius: '1rem', background: 'rgba(15,23,42,0.6)' }}>
                 <h4 style={{ color: '#eab308', marginBottom: '1rem' }}>🧪 Sandbox: Lab Diagnostics Planner</h4>
