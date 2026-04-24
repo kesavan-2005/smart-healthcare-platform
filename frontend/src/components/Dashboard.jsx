@@ -12,8 +12,9 @@ export default function Dashboard({ user, onLogout }) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [clarifyMode, setClarifyMode] = useState(false);
-  const [clarifyOptions, setClarifyOptions] = useState([]);
-  const [selectedClarifications, setSelectedClarifications] = useState([]);
+  const [chatHistory, setChatHistory] = useState([]);
+  const [pendingQuestions, setPendingQuestions] = useState([]);
+  const [activeSymptomsList, setActiveSymptomsList] = useState([]);
   const [predictionData, setPredictionData] = useState(null);
   
   const [emergencyAlert, setEmergencyAlert] = useState(false);
@@ -26,44 +27,46 @@ export default function Dashboard({ user, onLogout }) {
 
   const API_BASE = import.meta.env.VITE_API_URL || 'http://127.0.0.1:5000';
 
-  const performPrediction = async (symptomsArray) => {
-    setLoading(true);
+  const fetchPrediction = async (symptomsArray) => {
+    const res = await fetch(`${API_BASE}/predict`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ symptoms: symptomsArray })
+    });
+    if(!res.ok) throw new Error("Server connection failed");
+    return await res.json();
+  };
+
+  const fetchSuggestions = async (symptomsArray) => {
+    const res = await fetch(`${API_BASE}/suggest`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ symptoms: symptomsArray })
+    });
+    if(!res.ok) throw new Error("Server offline");
+    return await res.json();
+  };
+
+  const finalizeDiagnosis = (data, symptomsArray) => {
+    setPredictionData(data);
     setClarifyMode(false);
-    setError(null);
-    try {
-      const res = await fetch(`${API_BASE}/predict`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ symptoms: symptomsArray })
-      });
-      if(!res.ok) throw new Error("Server connection failed");
-      const data = await res.json();
-      setPredictionData(data);
-
-      if (data.emergency_alert === "EMERGENCY") {
-        setEmergencyAlert(true);
-        setTimeout(() => setEmergLogs(prev => ({...prev, sms: true})), 1000);
-        setTimeout(() => setEmergLogs(prev => ({...prev, email: true})), 2500);
-      } else {
-        setEmergencyAlert(false);
-        setEmergLogs({sms:false, email:false});
-      }
-
-      // Save to EHR
-      const record = {
-        date: new Date().toLocaleString(),
-        symptoms: symptomsArray.join(', '),
-        disease: data.final_diagnosis,
-        doctor: data.recommended_doctor
-      };
-      const records = JSON.parse(localStorage.getItem('smartHealthRecords') || '[]');
-      localStorage.setItem('smartHealthRecords', JSON.stringify([record, ...records]));
-
-    } catch (err) {
-      setError(err.message);
-    } finally {
-      setLoading(false);
+    if (data.emergency_alert === "EMERGENCY") {
+      setEmergencyAlert(true);
+      setTimeout(() => setEmergLogs(prev => ({...prev, sms: true})), 1000);
+      setTimeout(() => setEmergLogs(prev => ({...prev, email: true})), 2500);
+    } else {
+      setEmergencyAlert(false);
+      setEmergLogs({sms:false, email:false});
     }
+
+    const record = {
+      date: new Date().toLocaleString(),
+      symptoms: symptomsArray.join(', '),
+      disease: data.final_diagnosis,
+      doctor: data.recommended_doctor
+    };
+    const records = JSON.parse(localStorage.getItem('smartHealthRecords') || '[]');
+    localStorage.setItem('smartHealthRecords', JSON.stringify([record, ...records]));
   };
 
   const handleAnalyze = async () => {
@@ -72,35 +75,66 @@ export default function Dashboard({ user, onLogout }) {
       return;
     }
     const symptomsArray = symptoms.split(',').map(s => s.trim()).filter(Boolean);
+    setActiveSymptomsList(symptomsArray);
     
     setLoading(true);
     setError(null);
     try {
-      const res = await fetch(`${API_BASE}/suggest`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ symptoms: symptomsArray })
-      });
-      if(!res.ok) throw new Error("Server offline");
-      const data = await res.json();
+      const predData = await fetchPrediction(symptomsArray);
       
-      if(data.questions && data.questions.length > 0) {
-        setClarifyOptions(data.questions);
-        setClarifyMode(true);
-        setLoading(false);
+      if (predData.confidence_percentage >= 80) {
+         finalizeDiagnosis(predData, symptomsArray);
       } else {
-        await performPrediction(symptomsArray);
+         const suggestData = await fetchSuggestions(symptomsArray);
+         if (suggestData.questions && suggestData.questions.length > 0) {
+            setPendingQuestions(suggestData.questions);
+            setChatHistory([
+               { sender: 'ai', text: `I noticed your symptoms could point to a few different things. Let's narrow it down. ${suggestData.questions[0].question}` }
+            ]);
+            setClarifyMode(true);
+         } else {
+            finalizeDiagnosis(predData, symptomsArray);
+         }
       }
     } catch(err) {
       setError(err.message);
+    } finally {
       setLoading(false);
     }
   };
 
-  const handleFinalize = () => {
-    const array = symptoms.split(',').map(s=>s.trim()).filter(Boolean);
-    const combined = [...new Set([...array, ...selectedClarifications])];
-    performPrediction(combined);
+  const handleChatResponse = async (answerYes) => {
+    if (pendingQuestions.length === 0) return;
+    
+    const currentQ = pendingQuestions[0];
+    const newHistory = [...chatHistory, { sender: 'user', text: answerYes ? "Yes" : "No" }];
+    
+    let newSymptoms = [...activeSymptomsList];
+    if (answerYes) {
+      newSymptoms.push(currentQ.symptom);
+    }
+    
+    setActiveSymptomsList(newSymptoms);
+    setChatHistory([...newHistory, { sender: 'ai', text: 'Analyzing...', loading: true }]);
+    setSymptoms(newSymptoms.join(', '));
+    
+    try {
+      const predData = await fetchPrediction(newSymptoms);
+      const remainingQs = pendingQuestions.slice(1);
+      
+      if (predData.confidence_percentage >= 80 || remainingQs.length === 0) {
+        finalizeDiagnosis(predData, newSymptoms);
+      } else {
+        setPendingQuestions(remainingQs);
+        setChatHistory([
+           ...newHistory,
+           { sender: 'ai', text: `Got it. ${remainingQs[0].question}` }
+        ]);
+      }
+    } catch(err) {
+       setError(err.message);
+       setClarifyMode(false);
+    }
   };
 
   // Voice Interaction Logic
@@ -204,20 +238,45 @@ export default function Dashboard({ user, onLogout }) {
             </div>
           </div>
         ) : (
-          <div style={{ background: 'rgba(74, 222, 128, 0.05)', border: '1px solid var(--success)', padding: '1.5rem', borderRadius: '1rem' }}>
-            <h4 style={{ color: 'var(--success)', marginBottom: '1rem' }}>AI Clarification Needed</h4>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.8rem', marginBottom: '1.5rem' }}>
-              {clarifyOptions.map((q, idx) => (
-                <label key={idx} style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', cursor: 'pointer' }}>
-                  <input type="checkbox" onChange={(e) => {
-                    if(e.target.checked) setSelectedClarifications([...selectedClarifications, q.symptom]);
-                    else setSelectedClarifications(selectedClarifications.filter(s => s !== q.symptom));
-                  }} />
-                  <span>{q.question}</span>
-                </label>
+          <div style={{ background: 'rgba(15, 23, 42, 0.8)', border: '1px solid var(--primary)', padding: '1.5rem', borderRadius: '1rem', display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+            <h4 style={{ color: 'var(--primary)', marginBottom: '0.5rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+              <Activity size={18}/> Diagnostic Chatbot
+            </h4>
+            
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', maxHeight: '300px', overflowY: 'auto', paddingRight: '0.5rem' }}>
+              {chatHistory.map((msg, idx) => (
+                <div key={idx} style={{ 
+                  alignSelf: msg.sender === 'user' ? 'flex-end' : 'flex-start',
+                  background: msg.sender === 'user' ? 'var(--primary)' : 'rgba(255,255,255,0.05)',
+                  color: msg.sender === 'user' ? '#0f172a' : 'white',
+                  padding: '1rem', borderRadius: '1rem',
+                  borderBottomRightRadius: msg.sender === 'user' ? '0' : '1rem',
+                  borderBottomLeftRadius: msg.sender === 'ai' ? '0' : '1rem',
+                  maxWidth: '80%',
+                  border: msg.sender === 'ai' ? '1px solid rgba(255,255,255,0.1)' : 'none',
+                  animation: 'slideUpFade 0.3s forwards'
+                }}>
+                  {msg.loading ? (
+                    <span style={{ display: 'flex', gap: '0.3rem', alignItems: 'center' }}>
+                      <span className="dot-pulse">●</span><span className="dot-pulse" style={{animationDelay: '0.2s'}}>●</span><span className="dot-pulse" style={{animationDelay: '0.4s'}}>●</span>
+                    </span>
+                  ) : (
+                    msg.text
+                  )}
+                </div>
               ))}
             </div>
-            <button className="primary-btn" onClick={handleFinalize}>Finalize Diagnosis</button>
+
+            {pendingQuestions.length > 0 && !chatHistory[chatHistory.length - 1]?.loading && (
+              <div style={{ display: 'flex', gap: '1rem', marginTop: '1rem' }}>
+                <button className="primary-btn hover-glow" style={{ flex: 1, background: 'var(--success)', color: '#000' }} onClick={() => handleChatResponse(true)}>
+                  Yes, I have this
+                </button>
+                <button className="secondary-btn hover-glow" style={{ flex: 1, border: '1px solid var(--danger)', color: 'var(--danger)' }} onClick={() => handleChatResponse(false)}>
+                  No
+                </button>
+              </div>
+            )}
           </div>
         )}
       </div>
