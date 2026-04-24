@@ -206,4 +206,14 @@ h1, h2, h3, .logo-text { font-family: 'Outfit', sans-serif; }
   h1 {
     font-size: 2rem !important;
   }
+  .modal-content {
+    padding: 1.2rem !important;
+    width: 95% !important;
+    max-height: 90vh;
+    overflow-y: auto;
+  }
+  .sandbox-grid {
+    grid-template-columns: 1fr !important;
+    gap: 1rem !important;
+  }
 }

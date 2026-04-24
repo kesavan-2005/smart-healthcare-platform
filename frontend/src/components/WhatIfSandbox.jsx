@@ -67,7 +67,7 @@ export default function WhatIfSandbox({ predictionData, onClose }) {
           <BrainCircuit /> WHAT-IF SANDBOX
         </h2>
 
-        <div style={{ display: 'grid', gridTemplateColumns: 'minmax(250px, 1fr) 2fr 1fr', gap: '2rem' }}>
+        <div className="sandbox-grid" style={{ display: 'grid', gridTemplateColumns: 'minmax(250px, 1fr) 2fr 1fr', gap: '2rem' }}>
           
           {/* Column A: Controls */}
           <div style={{ background: 'rgba(255,255,255,0.02)', padding: '1.5rem', borderRadius: '1rem', border: '1px solid rgba(255,255,255,0.1)' }}>
