@@ -38,7 +38,7 @@ export default function Login({ onLogin }) {
   };
 
   return (
-    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '100vh', width: '100%' }}>
+    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '100vh', width: '100%', padding: '1rem' }}>
       <div className="card" style={{ maxWidth: '450px', width: '100%', animation: 'slideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards' }}>
         <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
           <Stethoscope size={48} color="var(--primary)" style={{ filter: 'drop-shadow(0 0 15px rgba(56, 189, 248, 0.5))', marginBottom: '1rem' }} />
