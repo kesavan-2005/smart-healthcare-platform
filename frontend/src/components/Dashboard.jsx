@@ -141,15 +141,15 @@ export default function Dashboard({ user, onLogout }) {
   };
 
   return (
-    <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '2rem' }}>
+    <div className="dashboard-container" style={{ maxWidth: '1200px', margin: '0 auto', padding: '2rem' }}>
       <NeuralBackground />
       <div className={`emergency-vignette ${emergencyAlert || (predictionData && predictionData.severity_level === 'Critical') ? 'active' : ''}`} />
 
-      <header style={{ display:'flex', justifyContent:'space-between', alignItems:'center', background: 'rgba(15,23,42,0.8)', padding: '1rem 2rem', borderRadius: '1rem', border: '1px solid var(--border)', marginBottom: '2rem', position: 'relative', zIndex: 10 }}>
+      <header className="dashboard-header" style={{ display:'flex', justifyContent:'space-between', alignItems:'center', background: 'rgba(15,23,42,0.8)', padding: '1rem 2rem', borderRadius: '1rem', border: '1px solid var(--border)', marginBottom: '2rem', position: 'relative', zIndex: 10 }}>
         <h2 className="hover-glow" style={{ color: 'var(--primary)', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
           <Activity /> SmartHealth AI
         </h2>
-        <div style={{ display: 'flex', gap: '1.5rem', alignItems: 'center' }}>
+        <div className="header-actions" style={{ display: 'flex', gap: '1.5rem', alignItems: 'center' }}>
           <button className="secondary-btn" onClick={() => setShowEHR(true)} style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
             <FileText size={18} /> My Health Records
           </button>
@@ -239,7 +239,7 @@ export default function Dashboard({ user, onLogout }) {
         <div className="card hover-glow animate-stagger-1" style={{ position: 'relative', overflow: 'hidden' }}>
           <div style={{ position: 'absolute', top: '-50%', right: '-10%', width: '300px', height: '300px', background: 'radial-gradient(circle, rgba(56,189,248,0.2) 0%, transparent 70%)', filter: 'blur(40px)', zIndex: 0 }}></div>
           <div style={{ position: 'relative', zIndex: 1 }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', borderBottom: '1px solid var(--border)', paddingBottom: '1.5rem', marginBottom: '1.5rem' }}>
+            <div className="diagnosis-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', borderBottom: '1px solid var(--border)', paddingBottom: '1.5rem', marginBottom: '1.5rem' }}>
               <div>
                 <div style={{ color: 'var(--primary)', fontWeight: 600, marginBottom: '0.5rem' }}>Primary Diagnosis</div>
                 <h1 style={{ fontSize: '2.5rem', margin: 0 }}>{predictionData.final_diagnosis}</h1>
@@ -267,7 +267,7 @@ export default function Dashboard({ user, onLogout }) {
             <div className="hover-glow animate-stagger-3" style={{ border: '1px solid var(--border)', padding: '1.5rem', borderRadius: '1rem', background: 'rgba(15,23,42,0.6)' }}>
               <h4 style={{ color: '#a855f7', marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}><Stethoscope size={18}/> Recommended Specialist</h4>
               <div style={{ fontSize: '1.5rem', fontWeight: 600, marginBottom: '1rem', color: 'white' }}>{predictionData.recommended_doctor}</div>
-              <div style={{ display: 'flex', gap: '0.5rem' }}>
+              <div className="action-grid" style={{ display: 'flex', gap: '0.5rem' }}>
                 <button className="primary-btn hover-glow" style={{ flex: 1, fontSize: '0.9rem', background: 'linear-gradient(135deg, #a855f7 0%, #7e22ce 100%)', color: 'white', padding: '0.8rem' }} onClick={() => setShowVideo(true)}>
                   <Video size={16} /> Connect Live
                 </button>
