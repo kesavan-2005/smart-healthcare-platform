@@ -26,7 +26,7 @@ export default function Dashboard({ user, onLogout }) {
   const [showSandbox, setShowSandbox] = useState(false);
   const [activeMedSystem, setActiveMedSystem] = useState('Allopathy');
 
-  const API_BASE = import.meta.env.VITE_API_URL || 'https://smart-healthcare-platform-2.onrender.com';
+  const API_BASE = 'https://smart-healthcare-platform-2.onrender.com';
 
   const fetchPrediction = async (symptomsArray) => {
     const res = await fetch(`${API_BASE}/predict`, {
