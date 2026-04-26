@@ -44,7 +44,7 @@ export default function ReportUploader({ onUploadSuccess }) {
       // Simulate slight delay for effect if upload is instant
       setTimeout(() => setStatus('processing'), 800);
       
-      const API_BASE = import.meta.env.VITE_API_URL || 'http://127.0.0.1:5000';
+      const API_BASE = import.meta.env.VITE_API_URL || 'https://smart-healthcare-platform-2.onrender.com';
       const res = await fetch(`${API_BASE}/upload-report`, {
         method: 'POST',
         body: formData,
