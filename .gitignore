@@ -1,0 +1,31 @@
+# Dependencies & Virtual Environments
+node_modules/
+frontend/node_modules/
+.venv/
+venv/
+env/
+__pycache__/
+*.pyc
+*.pyo
+
+# Build & Dist Outputs
+dist/
+build/
+frontend/dist/
+frontend/build/
+
+# Environment & Config
+.env
+.env.local
+.env.production
+.idea/
+.vscode/
+
+# System & OS Files
+.DS_Store
+Thumbs.db
+
+# Temporary & Workspace metadata
+scratch/
+.gemini/
+*.log
