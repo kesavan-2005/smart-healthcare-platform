@@ -12,33 +12,33 @@ An intelligent digital healthcare ecosystem for **telemedicine**, **explainable 
 
 ---
 
-## ✨ Key Features
+##  Key Features
 
 ### 🎙️ 1. Multimodal Input Options
 - **Voice Symptom Input**: Web Speech API integration allowing elderly and disabled users to speak symptoms directly.
 - **Text Input**: Quick comma-separated symptom entry with real-time autocompletion.
 - **Hybrid Document & Image Scanner**: Drag-and-drop support for **Medical Reports (PDF/TXT)**, **Scanned Lab Reports (OCR)**, and **Skin Photo Symptoms (Vision Analyzer)**.
 
-### 🧠 2. Intelligent AI Predictor & Dynamic Follow-up Chatbot
+###  2. Intelligent AI Predictor & Dynamic Follow-up Chatbot
 - **Random Forest Classifier**: Trained on 130+ medical symptoms mapping to 40+ clinical conditions with top-3 confidence rankings.
 - **Adaptive Diagnostic Chatbot**: Triggers intelligent Yes/No follow-up questions using co-occurrence frequency analysis when prediction confidence is below 80%.
 
-### 📊 3. Explainable AI (XAI Traceback)
+###  3. Explainable AI (XAI Traceback)
 - **SHAP Integration**: Quantifies exact positive/negative contributions of each symptom to build patient trust and transparency.
 
-### 🚨 4. Critical Emergency Detection System
+###  4. Critical Emergency Detection System
 - **Real-Time Rule Engine**: Immediately flags emergency symptom combinations (e.g. *chest pain + breathlessness* or *high fever + stiff neck*) and displays simulated SMS/email dispatch alerts.
 
-### 🌿 5. Multi-System Medical Protocol Classification
+###  5. Multi-System Medical Protocol Classification
 - Comprehensive treatment strategies across **Allopathy** (standard precautions), **Ayurveda**, and **Siddha** systems of medicine.
 
-### 🧪 6. Interactive "What-If" Simulation Sandbox
+###  6. Interactive "What-If" Simulation Sandbox
 - **Monte Carlo Trajectory Charting**: 6-month projected risk recovery trajectories based on medical interventions (pharmaceuticals, diet, Ayurveda, treatment delay).
 - **Cyber-Body Map**: Dynamic SVG anatomical visualization highlighting affected body zones (head, chest, abdomen).
 
 ---
 
-## 🏗️ System Architecture
+##  System Architecture
 
 ```
 [ User Input ] ---> Voice (Web Speech) / Text / Image OCR / PDF
@@ -64,7 +64,7 @@ An intelligent digital healthcare ecosystem for **telemedicine**, **explainable 
 
 ---
 
-## 🛠️ Tech Stack
+##  Tech Stack
 
 - **Frontend**: React 19, Vite, Lucide React Icons, Recharts, Vanilla CSS (Glassmorphism & Neural Canvas Animation).
 - **Backend**: Python 3.11+, Flask, Flask-CORS, PyPDF2, Pillow (PIL), PyTesseract.
@@ -73,7 +73,7 @@ An intelligent digital healthcare ecosystem for **telemedicine**, **explainable 
 
 ---
 
-## 📂 Project Directory Structure
+##  Project Directory Structure
 
 ```
 smart-healthcare-platform/
@@ -100,7 +100,7 @@ smart-healthcare-platform/
 
 ---
 
-## 🚀 Quickstart Guide
+##  Quickstart Guide
 
 ### Prerequisites
 - Node.js (v18+) & npm
@@ -134,18 +134,3 @@ npm run dev
 | `/upload-report` | `POST` | Parses PDF documents, lab report scans (OCR), or skin symptom photos |
 
 ---
-
-## 👨‍💻 Project Team & Credits
-
-- **Department of Information Technology**
-- **Presented By**:
-  - Kesavan. R `[510422205027]`
-  - Purushothaman. S `[510422205302]`
-  - Janamejan. V `[510422205020]`
-  - Syed Adhil B `[510422205056]`
-- **Project Guide**: Mrs. K. Haripriya, AP/IT
-
----
-
-## 📄 License
-Distributed under the MIT License. See `LICENSE` for more information.
